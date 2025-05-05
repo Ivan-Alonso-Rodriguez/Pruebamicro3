@@ -14,8 +14,6 @@ services:
       - "3003:80"
     depends_on:
       - mongo
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
 
 volumes:
   mongo_data:
