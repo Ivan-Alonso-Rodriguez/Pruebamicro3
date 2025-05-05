@@ -1,28 +1,25 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using imagenes_ms.Models;
-using imagenes_ms.Services;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(); // <-- Swagger FIX
-
-builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoSettings"));
-builder.Services.AddSingleton<GridFsService>();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Imagenes API", Version = "v1" });
+});
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger(); // <-- Swagger FIX
-    app.UseSwaggerUI(); // <-- Swagger FIX
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Imagenes API V1");
+});
 
-app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();
