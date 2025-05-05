@@ -3,7 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 
-namespace VetImagesService.Services;
+namespace VetImagesService.Services
 {
 public class ImageStorageService
 {
