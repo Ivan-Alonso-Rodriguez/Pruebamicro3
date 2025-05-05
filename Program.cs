@@ -11,11 +11,11 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Middlewares
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Mostrar Swagger SIEMPRE (desarrollo y producción)
+app.UseSwagger();
+app.UseSwaggerUI();
+
+
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
