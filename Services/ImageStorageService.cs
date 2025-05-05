@@ -1,4 +1,4 @@
-
+using Microsoft.AspNetCore.Http;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
@@ -20,7 +20,14 @@ public class ImageStorageService
     public async Task<string> SaveImageAsync(IFormFile file)
     {
         using var stream = file.OpenReadStream();
-        var id = await _bucket.UploadFromStreamAsync(file.FileName, stream);
+        var options = new GridFSUploadOptions
+        {
+            Metadata = new BsonDocument
+            {
+                { "contentType", file.ContentType }
+            }
+        };
+        var id = await _bucket.UploadFromStreamAsync(file.FileName, stream, options);
         return id.ToString();
     }
 
