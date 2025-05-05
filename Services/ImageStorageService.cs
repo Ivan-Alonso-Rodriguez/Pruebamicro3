@@ -4,7 +4,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 
 namespace VetImagesService.Services;
-
+{
 public class ImageStorageService
 {
     private readonly IMongoDatabase _database;
@@ -43,4 +43,5 @@ public class ImageStorageService
             return null;
         }
     }
+}
 }
